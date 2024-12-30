@@ -160,5 +160,5 @@ Un grand merci à tous mes camarades de l'école Holberton pour leur aide et leu
 
 ## 👷 <span id="auteurs">Auteurs</span>
 
-**Fabien CHAVONET**
-- Github: [@fchavonet](https://github.com/alfredgibeau-ahoussinou)
+**alfred GIBEAU--AHOUSSINOU**
+- Github: [@alfredgibeau-ahoussinou](https://github.com/alfredgibeau-ahoussinou)

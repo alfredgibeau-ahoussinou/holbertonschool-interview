@@ -1,45 +1,46 @@
 #!/usr/bin/python3
 """
-Reads stdin line by line and computes metrics
+this script reads stdin line by line and computes metrics
 """
+import sys
 
-from sys import stdin
+
+def printS(fileSize, statusDict):
+    """ print """
+    print("File size: {:d}".format(fileSize))
+    for key in sorted(statusDict.keys()):
+        if statusDict[key] != 0:
+            print(
+                "{}: {:d}".format(
+                    key, statusDict[key]
+                )
+            )
+
 
 if __name__ == "__main__":
-    total_size = 0
-    status_codes = {}
-    list_status_codes = [
-        "200", "301", "400", "401", "403", "404", "405", "500"]
-    for status in list_status_codes:
-        status_codes[status] = 0
-    count = 0
+    i = 0
+    statusDict = {
+        '200': 0,
+        '301': 0,
+        '400': 0,
+        '401': 0,
+        '403': 0,
+        '404': 0,
+        '405': 0,
+        '500': 0
+    }
+    fileSize = 0
     try:
-        for line in stdin:
-            try:
-                args = line.split(" ")
-                if len(args) != 9:
-                    pass
-                if args[-2] in list_status_codes:
-                    status_codes[args[-2]] += 1
-                if args[-1][-1] == '\n':
-                    args[-1][:-1]
-                total_size += int(args[-1])
-            except:
-                pass
-            count += 1
-            if count % 10 == 0:
-                print("File size: {}".format(total_size))
-                for status in sorted(status_codes.keys()):
-                    if status_codes[status] != 0:
-                        print("{}: {}".format(
-                            status, status_codes[status]))
-        print("File size: {}".format(total_size))
-        for status in sorted(status_codes.keys()):
-            if status_codes[status] != 0:
-                print("{}: {}".format(status, status_codes[status]))
-    except KeyboardInterrupt as err:
-        print("File size: {}".format(total_size))
-        for status in sorted(status_codes.keys()):
-            if status_codes[status] != 0:
-                print("{}: {}".format(status, status_codes[status]))
+        for line in sys.stdin:
+            keywords = line.split()
+            if len(keywords) >= 2:
+                if keywords[-2] in statusDict.keys():
+                    statusDict[keywords[-2]] += 1
+                fileSize += int(keywords[-1])
+                i += 1
+                if not i % 10:
+                    printS(fileSize, statusDict)
+        printS(fileSize, statusDict)
+    except KeyboardInterrupt:
+        printS(fileSize, statusDict)
         raise

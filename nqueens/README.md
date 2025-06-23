@@ -1,52 +1,61 @@
-N Queens
- Amateur
- By: Alexa Orrico, Software Engineer at Holberton School
- Weight: 1
- Migrated to checker v2:
- Your score will be updated as you progress.
-Requirements
-General
-Allowed editors: vi, vim, emacs
-All your files will be interpreted/compiled on Ubuntu 14.04 LTS using python3 (version 3.4.3)
-All your files should end with a new line
-The first line of all your files should be exactly #!/usr/bin/python3
-A README.md file, at the root of the folder of the project, is mandatory
-Your code should use the PEP 8 style (version 1.7.*)
-All your files must be executable
-Tasks
-0. N queens
-mandatory
+# Problème des N reines
 
-Chess grandmaster Judit Polgár, the strongest female chess player of all time
+Ce projet résout le problème classique des N reines : placer N reines sur un échiquier de taille N×N de sorte qu'aucune reine ne puisse en attaquer une autre (aucune sur la même ligne, colonne ou diagonale).
 
+## Fichiers
+- `0-nqueens.py` : Script principal pour résoudre le problème.
 
-The N queens puzzle is the challenge of placing N non-attacking queens on an N×N chessboard. Write a program that solves the N queens problem.
+## Utilisation
 
-Usage: nqueens N
-If the user called the program with the wrong number of arguments, print Usage: nqueens N, followed by a new line, and exit with the status 1
-where N must be an integer greater or equal to 4
-If N is not an integer, print N must be a number, followed by a new line, and exit with the status 1
-If N is smaller than 4, print N must be at least 4, followed by a new line, and exit with the status 1
-The program should print every possible solution to the problem
-One solution per line
-Format: see example
-You don’t have to print the solutions in a specific order
-You are only allowed to import the sys module
-Read: Queen, Backtracking
+```bash
+./0-nqueens.py N
+```
+- `N` doit être un entier supérieur ou égal à 4.
 
-julien@ubuntu:~/0x08. N Queens$ ./0-nqueens.py 4
+### Exemples
+```bash
+$ ./0-nqueens.py 4
 [[0, 1], [1, 3], [2, 0], [3, 2]]
 [[0, 2], [1, 0], [2, 3], [3, 1]]
-julien@ubuntu:~/0x08. N Queens$ ./0-nqueens.py 6
+
+$ ./0-nqueens.py 6
 [[0, 1], [1, 3], [2, 5], [3, 0], [4, 2], [5, 4]]
 [[0, 2], [1, 5], [2, 1], [3, 4], [4, 0], [5, 3]]
 [[0, 3], [1, 0], [2, 4], [3, 1], [4, 5], [5, 2]]
 [[0, 4], [1, 2], [2, 0], [3, 5], [4, 3], [5, 1]]
-julien@ubuntu:~/0x08. N Queens$
-Repo:
+```
 
-GitHub repository: holbertonschool-interview
-Directory: nqueens
-File: 0-nqueens.py
+## Gestion des erreurs
+- Si le nombre d'arguments est incorrect :
+  - Affiche `Usage: nqueens N` et quitte avec le code 1.
+- Si `N` n'est pas un nombre :
+  - Affiche `N must be a number` et quitte avec le code 1.
+- Si `N` < 4 :
+  - Affiche `N must be at least 4` et quitte avec le code 1.
 
-0/15 pts
+## Explication du code
+
+Le script utilise une approche de **backtracking** (retour sur trace) pour explorer toutes les positions possibles des reines.
+
+### Fonctions principales :
+- `is_safe(board, row, col, N)` :
+  - Vérifie si une reine peut être placée à la ligne `row` et colonne `col` sans être attaquée par une autre reine déjà placée.
+  - Elle vérifie la colonne et les deux diagonales.
+
+- `solve_n_queens(N)` :
+  - Lance la résolution pour un échiquier de taille `N`.
+  - Utilise une fonction interne `backtrack(queens, row)` pour placer les reines ligne par ligne.
+  - `queens` est une liste où l'indice représente la ligne et la valeur la colonne de la reine.
+  - Si une solution est trouvée, elle est ajoutée à la liste des solutions.
+
+- La boucle principale vérifie les arguments, convertit `N` en entier, puis affiche toutes les solutions trouvées sous forme de liste de coordonnées `[ligne, colonne]`.
+
+## Exemple de solution pour N=4
+Pour N=4, il y a 2 solutions possibles :
+- `[[0, 1], [1, 3], [2, 0], [3, 2]]`
+- `[[0, 2], [1, 0], [2, 3], [3, 1]]`
+
+Chaque sous-liste `[i, j]` indique qu'une reine est placée à la ligne `i` et colonne `j`.
+
+## Auteur
+Projet réalisé par Holberton School.

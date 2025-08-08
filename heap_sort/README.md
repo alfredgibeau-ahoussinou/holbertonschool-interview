@@ -1,6 +1,5 @@
 Heap Sort
- Amateur
- By: Alexandre Gautier, Software Engineer at Holberton School
+Software Engineer at Holberton School
  Weight: 1
  Migrated to checker v2:
  Your score will be updated as you progress.
@@ -127,7 +126,6 @@ alex@/tmp/sort$ ./0-heap
 7, 13, 19, 48, 52, 71, 73, 86, 96, 99
 
 7, 13, 19, 48, 52, 71, 73, 86, 96, 99
-alex@/tmp/sort$
 Repo:
 
 GitHub repository: holbertonschool-interview

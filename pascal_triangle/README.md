@@ -1,5 +1,4 @@
-    Project: Pascal's Triangle | Holberton Laval, France Intranet
-
+   
 ### 0\. Pascal's Triangle
 
 mandatory

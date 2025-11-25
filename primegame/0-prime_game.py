@@ -24,36 +24,44 @@ def isWinner(x, nums):
     if x <= 0 or not nums:
         return None
 
-    max_n = max(nums)
-    if max_n < 2:
-        return None  # No primes available if all n < 2
+    # Process only the first x rounds
+    rounds_to_process = nums[:x]
+    
+    if not rounds_to_process:
+        return None
 
+    max_n = max(rounds_to_process)
+    
     # Step 1: Precompute prime numbers up to max_n using Sieve of Eratosthenes
-    sieve = [True] * (max_n + 1)
-    sieve[0] = sieve[1] = False  # 0 and 1 are not primes
+    if max_n >= 2:
+        sieve = [True] * (max_n + 1)
+        sieve[0] = sieve[1] = False  # 0 and 1 are not primes
 
-    for i in range(2, int(max_n ** 0.5) + 1):
-        if sieve[i]:
-            for j in range(i * i, max_n + 1, i):
-                sieve[j] = False
+        for i in range(2, int(max_n ** 0.5) + 1):
+            if sieve[i]:
+                for j in range(i * i, max_n + 1, i):
+                    sieve[j] = False
 
-    # Precomputed list of primes
-    primes = [i for i, is_prime in enumerate(sieve) if is_prime]
-
-    # Step 2: Count prime numbers up to each n
-    prime_counts = [0] * (max_n + 1)
-    count = 0
-    for i in range(1, max_n + 1):
-        if sieve[i]:
-            count += 1
-        prime_counts[i] = count
+        # Step 2: Count prime numbers up to each n
+        prime_counts = [0] * (max_n + 1)
+        count = 0
+        for i in range(1, max_n + 1):
+            if sieve[i]:
+                count += 1
+            prime_counts[i] = count
+    else:
+        # All n values are < 2, no primes available
+        prime_counts = [0] * (max_n + 1)
 
     # Step 3: Simulate rounds
     maria_wins = 0
     ben_wins = 0
 
-    for n in nums:
-        if prime_counts[n] % 2 == 1:
+    for n in rounds_to_process:
+        if n < 2:
+            # No primes available, Maria can't make a move, Ben wins
+            ben_wins += 1
+        elif prime_counts[n] % 2 == 1:
             maria_wins += 1  # Maria wins if the count is odd
         else:
             ben_wins += 1  # Ben wins if the count is even
